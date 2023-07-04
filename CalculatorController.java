@@ -2,29 +2,32 @@ package com.example.calculator;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class CalculatorController {
 
-    @GetMapping("/add")
-    public double add(@RequestParam double a, @RequestParam double b) {
-        return a + b;
+    @PostMapping("/add")
+    public double add(@RequestBody Map<String, Double> numbers) {
+        return numbers.get("a") + numbers.get("b");
     }
 
-    @GetMapping("/subtract")
-    public double subtract(@RequestParam double a, @RequestParam double b) {
-        return a - b;
+    @PostMapping("/subtract")
+    public double subtract(@RequestBody Map<String, Double> numbers) {
+        return numbers.get("a") - numbers.get("b");
     }
 
-    @GetMapping("/multiply")
-    public double multiply(@RequestParam double a, @RequestParam double b) {
-        return a * b;
+    @PostMapping("/multiply")
+    public double multiply(@RequestBody Map<String, Double> numbers) {
+        return numbers.get("a") * numbers.get("b");
     }
 
-    @GetMapping("/divide")
-    public double divide(@RequestParam double a, @RequestParam double b) {
+    @PostMapping("/divide")
+    public double divide(@RequestBody Map<String, Double> numbers) {
+        double b = numbers.get("b");
         if (b != 0) {
-            return a / b;
+            return numbers.get("a") / b;
         } else {
             throw new IllegalArgumentException("Division by zero is not allowed.");
         }
